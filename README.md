@@ -1,26 +1,32 @@
 # Query Based Ruled runner
 
 ## What it does
-It simulates a system where a consuming system sends an organisational id and gets a JSOn-object in return that summarises what rules were applied and if were any legal problems or economical risks attached to the organisation.
+It simulates a system where a consuming system sends an organisational ID and gets a JSON-object in return, that summarises what rules were applied and if there were any legal problems or economical risks attached to the organisation.
 
 ## What it is
-This is proof of concept exploring if a service with rules defined as a query, running against Json-documents can be a performant and easy to maintain alternative to existing rule executing products at a government agency.
+This is a proof of concept exploring if a service with rules defined as a document queries, running against JSON-documents, can be a performant and easy to maintain alternative to existing rule executing products at a government agency.
 
 The existing products to compete with are: 
-- One performant, but complex Java-service
-- A low-code platform, meant to replace the first alternative
+- One performant, but complex Java-service that is hard to maintain
+- A low-code platform, meant to replace the first alternative, but created new problems
 
 ### The Java-legacy project
-The Java-service created concerns for the business owners where each added rule is taking longer and longer to write, test and deliver.
-It was also meant to replace a similar product, but it could never reach the needed delivery velocity
+The Java-service created concerns for the business owners where each added rule took longer and longer to write, test and deliver.
+It was also meant to replace a similar product, but it could never reach the needed delivery velocity,
 
 ### The Low-code platform
-In the Low-code platform we found out the hard way that complex problems actually takes the same time as Java to write and deliver, but now the platform have added 100 times to execution time and licensing fees based on each consumer call
+In the Low-code platform we found out that complex problems, gives complex low-code and that it roughly takes the same time as Java to write and deliver, but now the platform have added a factor times 100 to execution time and licensing fees based on each consumer call.
 
 ## What to proof
-A successful proof of concept would execute as fast the old java-service, while proving that queries can replace large parts of the Java-code that slowed down business progress. Adding a new rule will require no new code, speeding the delivery time up by quite a lot. 
-A successful proof would also show that this PoC is also a performant and cost saving alternative for running monthly checks, where instead of running one rule at a time for roughly 200 000 companies, you would ask for the ide of all companies that matches the rule.
-Today's monthly checks takes roughly 8 hours with server CPU maxed out at 100% and the alarms turned off. There is money to be saved if we could scale down those servers.
+A successful proof of concept would execute as fast the old java-service, while proving that queries can replace large parts of the Java-code that slowed down business progress. 
+Adding a new rule will require no new code, speeding up the delivery time by quite a lot. 
+
+A successful proof would also show that this PoC is also a performant and cost saving alternative for the legacy system that are running monthly checks. 
+This legacy system is also running one rule at a time for each of the roughly 200 000 companies.
+Those monthly checks takes roughly 8 hours with server CPU maxed out at 100% and the alarms turned off, too not upset Ops. 
+There is money to be saved if we could scale down those servers.
+
+So if those thousands of HTTP-calls could be aggregated into one query call for each rule, then success is there for the taking.
 
 ## How to test this as a developer
 You want a local database for now, so do
