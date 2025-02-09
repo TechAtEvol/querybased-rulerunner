@@ -1,0 +1,7 @@
+### Ran rule for foreigned own companies that should not get a contract
+GET http://localhost:8080//control-results/5020201140
+
+### Ran rule for correct employer registration at the Swedish Tax agency
+GET http://localhost:8080//control-results/5050101145
+
+

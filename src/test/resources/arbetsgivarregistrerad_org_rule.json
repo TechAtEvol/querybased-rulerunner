@@ -1,0 +1,10 @@
+{
+  "rule": {
+    "id": "2",
+    "name": "ARBETSGIVARREGISTRERAD",
+    "query": "{'$and':[{'skatt.registreringar': {'$elemMatch': {'aktiv': false}}}, {'skatt.registreringar': {'$elemMatch': {'typ.kod': 'ARBETSGIVARE'}}}]}",
+    "skapadAv": "FRHS",
+    "kalla": "Något lagstöd",
+    "svarsText": "Arbetsgivaren är inte registrerad som arbetsgivare hos Skatteverket.  Mer information om regler, se handläggarstöd för Arbetsgivarkontroll"
+  }
+}

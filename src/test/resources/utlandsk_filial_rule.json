@@ -1,0 +1,10 @@
+{
+  "rule": {
+    "id": "1",
+    "name": "FILIAL_TILL_UTLANDSKT_BOLAG",
+    "query": "{'organisation.juridiskForm.kod': 96}",
+    "skapadAv": "FRHS",
+    "kalla": "Något lagstöd",
+    "svarsText": "Arbetsgivaren är en filial till ett utländskt bolag. Mer information om regler, se handläggarstöd för Arbetsgivarkontroll."
+  }
+}

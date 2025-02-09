@@ -1,0 +1,146 @@
+{
+  "organisation": {
+    "orgNr": "5050101145",
+    "namn": "Oreggade firman AB",
+    "juridiskForm": {
+      "kod": 41,
+      "beskrivning": "Aktiebolag"
+    },
+    "registrerad": "2010-01-01",
+    "status": [],
+    "foretradare": [
+      {
+        "organisationer": [
+          {
+            "orgNr": "9001032391",
+            "namn": "Fina firman AB",
+            "organisationsForm": {
+              "kod": "AB",
+              "beskrivning": "Aktiebolag"
+            },
+            "lopNummer": 1,
+            "roller": [
+              {
+                "kod": "vd",
+                "beskrivning": "Verkställande direktör",
+                "bedomning": {
+                  "kod": "HAR_VASENTLIGT_INFLYTANDE",
+                  "beskrivning": "Har väsentligt inflytande"
+                }
+              }
+            ],
+            "status": []
+          }
+        ],
+        "identitet": {
+          "id": "9001032391",
+          "sekel": "19",
+          "beskrivning": "Personnummer",
+          "kod": "PERSONNUMMER"
+        },
+        "namn": "Förnamn Efternamn",
+        "roller": [
+          {
+            "kod": "vd",
+            "beskrivning": "Verkställande direktör",
+            "bedomning": {
+              "kod": "HAR_VASENTLIGT_INFLYTANDE",
+              "beskrivning": "Har väsentligt inflytande"
+            }
+          }
+        ]
+      }
+    ],
+    "huvudman": [
+      {
+        "organisationer": [
+          {
+            "orgNr": "9001032391",
+            "namn": "Fina firman AB",
+            "organisationsForm": {
+              "kod": "AB",
+              "beskrivning": "Aktiebolag"
+            },
+            "lopNummer": 1,
+            "roller": [
+              {
+                "kod": "vd",
+                "beskrivning": "Verkställande direktör",
+                "bedomning": {
+                  "kod": "HAR_VASENTLIGT_INFLYTANDE",
+                  "beskrivning": "Har väsentligt inflytande"
+                }
+              }
+            ],
+            "status": []
+          }
+        ],
+        "identitet": {
+          "id": "9001032391",
+          "sekel": "19",
+          "beskrivning": "Personnummer",
+          "kod": "PERSONNUMMER"
+        },
+        "namn": "Herr Verklig Komma Huvudman",
+        "medborgarskap": "Svensk",
+        "bosattningsland": "Sverige",
+        "omfattning": {
+          "kod": "5",
+          "beskrivning": "100%"
+        },
+        "art": {
+          "kod": "32",
+          "beskrivning": "Dotterbolag"
+        }
+      }
+    ],
+    "ekonomiskaResultat": [
+      {
+        "nettoOmsattning": 154398000000,
+        "arsresultat": 3446000000,
+        "bokslutsperiod": "201812"
+      }
+    ]
+  },
+  "skatt": {
+    "registreringar": [
+      {
+        "typ": {
+          "kod": "ARBETSGIVARE",
+          "beskrivning": "arbetsgivare"
+        },
+        "aktiv": false
+      },
+      {
+        "typ": {
+          "kod": "F_SKATT",
+          "beskrivning": "F-skatt"
+        },
+        "aktiv": true
+      },
+      {
+        "typ": {
+          "kod": "MOMS",
+          "beskrivning": "moms"
+        },
+        "aktiv": true
+      }
+    ]
+  },
+  "risker": {
+    "anmarkningar": {
+      "anmarkningsMal": [],
+      "anmarkningsHistorik": []
+    }
+  },
+  "skulder": {
+    "kronofogdeMal": [],
+    "beslut": {
+      "utredningsrapporter": [],
+      "loneutmatningar": [],
+      "utmatningar": [],
+      "avrakningsbeslut": []
+    },
+    "skuldsaneringsHistorik": []
+  }
+}

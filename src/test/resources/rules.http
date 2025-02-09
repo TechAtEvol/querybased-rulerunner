@@ -1,0 +1,31 @@
+### Posted rule for utländsk filial
+POST http://localhost:8080/rules
+
+{
+  "rule": {
+    "id": "1",
+    "name": "FILIAL_TILL_UTLANDSKT_BOLAG",
+    "query": "{'organisation.juridiskForm.kod': 96}",
+    "skapadAv": "FRHS",
+    "kalla": "Något lagstöd",
+    "svarsText": "Arbetsgivaren är en filial till ett utländskt bolag. Mer information om regler, se handläggarstöd för Arbetsgivarkontroll."
+  }
+}
+
+### Posted rule for arbetsgivar registrerad 1
+POST http://localhost:8080/rules
+
+{
+  "rule": {
+    "id": "2",
+    "name": "ARBETSGIVARREGISTRERAD",
+    "query": "{'$and':[ {'skatt.registreringar.': {'$elemMatch': {'aktiv': false}}}, {'skatt.registreringar.': {'$elemMatch': {'typ.kod': 'ARBETSGIVARE'}}}]}",
+    "skapadAv": "FRHS",
+    "kalla": "Något lagstöd",
+    "svarsText": "Arbetsgivaren är inte registrerad som arbetsgivare hos Skatteverket.  Mer information om regler, se handläggarstöd för Arbetsgivarkontroll"
+  }
+}
+
+### Get all rules
+GET http://localhost:8080/rules
+
