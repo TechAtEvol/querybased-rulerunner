@@ -7,6 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +30,7 @@ public class ControlResultsAPI {
             long durationInMilliseconds = TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS);
             Log.info("Rule engine duration in milli-seconds: " + durationInMilliseconds);
             return Response.ok(mapper.writeValueAsString(result)).header("RuleEngineDurationInMilliseconds", durationInMilliseconds).build();
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             return Response.ok("Do something about the IOException handling: "+e.getMessage()).status(500).build();
         }
 

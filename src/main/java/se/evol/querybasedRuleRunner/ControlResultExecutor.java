@@ -6,6 +6,7 @@ import org.bson.BsonDocument;
 import org.bson.Document;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ControlResultExecutor {
         this.kycService = kycService;
     }
 
-    public List<ControlResultModel> runControlsByRulesPackageIdAndOrgNr(String rulesPackageId, String orgNr) throws IOException {
+    public List<ControlResultModel> runControlsByRulesPackageIdAndOrgNr(String rulesPackageId, String orgNr) throws IOException, URISyntaxException {
         // TODO: Implement the concept of rules packages, so consumers can have different groupings but still reuse rules
         String orgInfo = kycService.getInfoByOrgNr(orgNr);
         String internalId = documentRepo.saveOrganisation(orgInfo);

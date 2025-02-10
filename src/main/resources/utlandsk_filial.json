@@ -1,0 +1,15 @@
+{
+  "organisation": {
+    "orgNr": "5020201140",
+    "namn": "Utländska filialen",
+    "juridiskForm": {
+      "kod": 96,
+      "beskrivning": "Utländsk filial"
+    },
+    "registrerad": "2011-01-01",
+    "status": [],
+    "foretradare": [],
+    "huvudman": [],
+    "ekonomiskaResultat": []
+  }
+}
