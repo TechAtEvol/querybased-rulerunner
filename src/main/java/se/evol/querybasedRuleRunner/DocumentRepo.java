@@ -9,6 +9,7 @@ import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 import java.util.Date;
 import java.util.Objects;
@@ -21,33 +22,25 @@ import static com.mongodb.client.model.Sorts.descending;
 public class DocumentRepo {
     private String doc;
 
-    public DocumentRepo() {
-        // TODO: Configurable and secret for prod
-        String CONNECTION_STRING = "mongodb://localhost:28017";
-        this.mongoClient = MongoClients.create(CONNECTION_STRING);
-        this.orgKontrollDb = mongoClient.getDatabase(DB_NAME);
-    }
-    private final MongoClient mongoClient;
-    private final MongoDatabase orgKontrollDb;
-    private final String DB_NAME = "orgkontroll_db";
-    private final String ORGANIZATIONS = TemporaryTestConfigs.databaseCollectionOrganisationsName.getValueOf();
-    String RULES = TemporaryTestConfigs.databaseCollectionRulesName.getValueOf();
+    String CONNECTION_STRING = ConfigProvider.getConfig().getValue("database.url", String.class);
+    String DATABASE_NAME = ConfigProvider.getConfig().getValue("database.name", String.class);
 
-    public void wipeDataBase() {
-        MongoDatabase orgKontrollDb = mongoClient.getDatabase(DB_NAME);
-        orgKontrollDb.getCollection(ORGANIZATIONS).drop();
-        orgKontrollDb.getCollection("rules").drop();
+    String COLLECTION_RULES_NAME = ConfigProvider.getConfig().getValue("database.collection.rules.name", String.class);
+    String COLLECTION_ORGANISATIONS_NAME = ConfigProvider.getConfig().getValue("database.collection.organisations.name", String.class);
+    public DocumentRepo() {
+        MongoClient mongoClient = MongoClients.create(CONNECTION_STRING);
+        this.orgKontrollDb = mongoClient.getDatabase(DATABASE_NAME);
     }
+    private final MongoDatabase orgKontrollDb;
 
     public Optional<Document> findLatestOrgById(String orgId) {
-        MongoCollection<Document> organizations = orgKontrollDb.getCollection(ORGANIZATIONS);
+        MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_ORGANISATIONS_NAME);
         FindIterable<Document> searchResult = organizations.find(eq("organisation.orgNr", orgId)).sort(descending("ts"));
         return Optional.ofNullable(searchResult.first());
-
     }
 
     public String saveOrganisation(String stringDoc) {
-        MongoCollection<Document> organizations = orgKontrollDb.getCollection(ORGANIZATIONS);
+        MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_ORGANISATIONS_NAME);
         Document doc = Document.parse(stringDoc);
         doc.put("ts", new Date());
         BsonValue insertId = organizations.insertOne(doc).getInsertedId();
@@ -55,19 +48,19 @@ public class DocumentRepo {
     }
 
     public Optional<Document> findLatestRuleVersionById(String ruleId) {
-        MongoCollection<Document> organizations = orgKontrollDb.getCollection(RULES);
+        MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_RULES_NAME);
         FindIterable<Document> searchResult = organizations.find(eq("rule.id", ruleId)).sort(descending("ts"));
         return Optional.ofNullable(searchResult.first());
     }
 
     public FindIterable<Document> findAllRules() {
-        MongoCollection<Document> organizations = orgKontrollDb.getCollection(RULES);
+        MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_RULES_NAME);
         return organizations.find()
                 .sort(descending("ts"));
     }
 
     public String saveRule(String stringDoc) {
-        MongoCollection<Document> organizations = orgKontrollDb.getCollection(RULES);
+        MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_RULES_NAME);
         Document doc = Document.parse(stringDoc);
         doc.put("ts", new Date());
         BsonValue newId = organizations.insertOne(doc).getInsertedId();
@@ -80,7 +73,7 @@ public class DocumentRepo {
         BsonDocument freeformQuery = BasicDBObject.parse(rule.query()).toBsonDocument();
         Bson combinedQuery = and(Filters.eq("_id", new ObjectId(internalId)), freeformQuery);
 
-        MongoCollection<Document> organizations = orgKontrollDb.getCollection(ORGANIZATIONS);
+        MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_ORGANISATIONS_NAME);
         return organizations.find(combinedQuery).sort(descending("ts"));
     }
 }
