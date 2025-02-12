@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// TODO:  Working with rules is admin rights only
 @Path("/rules")
 @Produces("application/json")
 public class RulesAPI {
@@ -37,6 +38,8 @@ public class RulesAPI {
             return Response.ok(searchResult.get().toJson()).build();
         }
     }
+
+    // TODO: Add schema validation OR rules does not change that much so you could go the ORM route
     @POST
     @RunOnVirtualThread
     public Response postRule(String jsonString) {

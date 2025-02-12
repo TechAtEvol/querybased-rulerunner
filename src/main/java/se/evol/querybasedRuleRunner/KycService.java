@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class KycService {
+
+    // TODO: A forgiving JSON schema instead of ORM would allow the external system to add new keys without syncing releases
     public String getInfoByOrgNr(String orgNr) throws IOException {
         // TODO: Some kind of mock server and a proper REST-client that calls a KYC-mock?
         String fileToUse = "";

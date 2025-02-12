@@ -7,6 +7,8 @@ import org.bson.Document;
 
 import java.util.Optional;
 
+
+// TODO: This is for test purpose only, and it should have locked down access rights in prod (or be removed)
 @Path("/organisations")
 @Produces("application/json")
 public class OrganisationAPI {
