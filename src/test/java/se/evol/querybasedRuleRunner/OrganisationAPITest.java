@@ -1,6 +1,5 @@
 package se.evol.querybasedRuleRunner;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -15,15 +14,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import java.io.File;
+
 import java.io.IOException;
+
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
 @ExtendWith(VirtualThreadExtension.class)
 class OrganisationAPITest {
-    private static final String ORGANIZATIONS = TemporaryTestConfigs.databaseCollectionOrganisationsName.getValueOf();
-    private static final String filePathToJson = TemporaryTestConfigs.pathToMockJsonForUtlandskFilial.getValueOf();
+    private static final String ORGANIZATIONS = "organisations";
     private static final String CONNECTION_STRING = "mongodb://localhost:28017";
     private static final String DB_NAME = "orgkontroll_db";
 
@@ -39,9 +38,7 @@ class OrganisationAPITest {
     static void setUp() throws IOException {
         MongoClient mongoClient = getMongoClient();
         MongoCollection<Document> organisations = getMongoCollection(mongoClient);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonFile = objectMapper.readTree(new File(filePathToJson));
-        organisations.insertOne(Document.parse(jsonFile.toString()));
+        organisations.insertOne(Document.parse(JsonTestDataHelper.getEmployerThatIsForeignOwned()));
         mongoClient.close();
     }
 
@@ -57,12 +54,8 @@ class OrganisationAPITest {
     @ShouldNotPin
     @DisplayName("Posts an org and receives 201")
     void verifyPostOrganisation() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonFile = objectMapper.readTree(new File(filePathToJson));
-        String jsonString = jsonFile.toString();
-
         RestAssured.given()
-                .body(jsonString)
+                .body(JsonTestDataHelper.getCompanyWithoutTaxRegistrationAsEmployer())
                 .when().post("/organisations")
                 .then().statusCode(201);
     }

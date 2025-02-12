@@ -9,6 +9,7 @@ import java.net.URL;
 
 public class KycService {
     public String getInfoByOrgNr(String orgNr) throws IOException {
+        // TODO: Some kind of mock server and a proper REST-client that calls a KYC-mock?
         String fileToUse = "";
         String arbetsgivarRegistrerad = "/arbetsgivarregistrerad-org.json";
         String utlandskFilial = "/utlandsk_filial.json";
