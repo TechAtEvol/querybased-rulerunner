@@ -20,17 +20,14 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.descending;
 
 public class DocumentRepo {
-    private String doc;
-
-    String CONNECTION_STRING = ConfigProvider.getConfig().getValue("database.url", String.class);
-    String DATABASE_NAME = ConfigProvider.getConfig().getValue("database.name", String.class);
-
-    String COLLECTION_RULES_NAME = ConfigProvider.getConfig().getValue("database.collection.rules.name", String.class);
-    String COLLECTION_ORGANISATIONS_NAME = ConfigProvider.getConfig().getValue("database.collection.organisations.name", String.class);
     public DocumentRepo() {
         MongoClient mongoClient = MongoClients.create(CONNECTION_STRING);
         this.orgKontrollDb = mongoClient.getDatabase(DATABASE_NAME);
     }
+    String CONNECTION_STRING = ConfigProvider.getConfig().getValue("database.url", String.class);
+    String DATABASE_NAME = ConfigProvider.getConfig().getValue("database.name", String.class);
+    String COLLECTION_RULES_NAME = ConfigProvider.getConfig().getValue("database.collection.rules.name", String.class);
+    String COLLECTION_ORGANISATIONS_NAME = ConfigProvider.getConfig().getValue("database.collection.organisations.name", String.class);
     private final MongoDatabase orgKontrollDb;
 
     public Optional<Document> findLatestOrgById(String orgId) {
@@ -72,7 +69,6 @@ public class DocumentRepo {
         Log.info("Internal id: " +internalId);
         BsonDocument freeformQuery = BasicDBObject.parse(rule.query()).toBsonDocument();
         Bson combinedQuery = and(Filters.eq("_id", new ObjectId(internalId)), freeformQuery);
-
         MongoCollection<Document> organizations = orgKontrollDb.getCollection(COLLECTION_ORGANISATIONS_NAME);
         return organizations.find(combinedQuery).sort(descending("ts"));
     }

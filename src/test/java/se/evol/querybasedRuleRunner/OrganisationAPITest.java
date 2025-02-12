@@ -1,5 +1,4 @@
 package se.evol.querybasedRuleRunner;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
@@ -16,10 +15,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import java.io.File;
 import java.io.IOException;
-
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
@@ -30,7 +27,6 @@ class OrganisationAPITest {
     private static final String CONNECTION_STRING = "mongodb://localhost:28017";
     private static final String DB_NAME = "orgkontroll_db";
 
-
     private static MongoClient getMongoClient() {
         return MongoClients.create(CONNECTION_STRING);
     }
@@ -38,7 +34,6 @@ class OrganisationAPITest {
         MongoDatabase orgKontrollDb = mongoClient.getDatabase(DB_NAME);
         return orgKontrollDb.getCollection(ORGANIZATIONS);
     }
-
 
     @BeforeAll
     static void setUp() throws IOException {

@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControlResultExecutor {
-    private final DocumentRepo documentRepo;
-    private final KycService kycService;
-
     public ControlResultExecutor(DocumentRepo documentRepo, KycService kycService) {
         this.documentRepo = documentRepo;
         this.kycService = kycService;
     }
+    private final DocumentRepo documentRepo;
+    private final KycService kycService;
 
     public List<ControlResultModel> runControlsByRulesPackageIdAndOrgNr(String rulesPackageId, String orgNr) throws IOException, URISyntaxException {
-        // TODO: Implement the concept of rules packages, so consumers can have different groupings but still reuse rules
+        // TODO: Rules should be organised in packages, so consumers can combine. fetch and re-use rules for different processes
         String orgInfo = kycService.getInfoByOrgNr(orgNr);
         String internalId = documentRepo.saveOrganisation(orgInfo);
         FindIterable<Document> allRules = documentRepo.findAllRules();

@@ -17,7 +17,6 @@ public class ControlResultsAPI {
     DocumentRepo documentRepo= new DocumentRepo();
     KycService kycService = new KycService();
     private final ControlResultExecutor controlResultExecutor = new ControlResultExecutor(documentRepo, kycService);
-
     private final ObjectMapper mapper = new ObjectMapper();
 
     @GET
@@ -33,6 +32,5 @@ public class ControlResultsAPI {
         } catch (IOException | URISyntaxException e) {
             return Response.ok("Do something about the IOException handling: "+e.getMessage()).status(500).build();
         }
-
     }
 }

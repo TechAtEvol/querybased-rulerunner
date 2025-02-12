@@ -3,16 +3,12 @@ package se.evol.querybasedRuleRunner;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 public class KycService {
-
-    public String getInfoByOrgNr(String orgNr) throws IOException, URISyntaxException {
+    public String getInfoByOrgNr(String orgNr) throws IOException {
         String fileToUse = "";
         String arbetsgivarRegistrerad = "/arbetsgivarregistrerad-org.json";
         String utlandskFilial = "/utlandsk_filial.json";
