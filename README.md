@@ -34,7 +34,7 @@ You want a local database for now, so do
 ```
 docker-compose up
 ```
-The start the service
+To start the service
 ```shell script
 ./gradlew quarkusDev
 ```
