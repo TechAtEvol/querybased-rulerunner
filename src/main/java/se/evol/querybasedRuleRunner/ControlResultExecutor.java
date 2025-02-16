@@ -2,6 +2,8 @@ package se.evol.querybasedRuleRunner;
 
 import com.mongodb.client.FindIterable;
 import io.quarkus.logging.Log;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.bson.BsonDocument;
 import org.bson.Document;
 
@@ -10,13 +12,12 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class ControlResultExecutor {
-    public ControlResultExecutor(DocumentRepo documentRepo, KycService kycService) {
-        this.documentRepo = documentRepo;
-        this.kycService = kycService;
-    }
-    private final DocumentRepo documentRepo;
-    private final KycService kycService;
+    @Inject
+    DocumentRepo documentRepo;
+    @Inject
+    KycService kycService;
 
     public List<ControlResultModel> runControlsByRulesPackageIdAndOrgNr(String rulesPackageId, String orgNr) throws IOException, URISyntaxException {
         // TODO: Rules should be organised in packages, so consumers can combine. fetch and re-use rules for different processes

@@ -1,6 +1,7 @@
 package se.evol.querybasedRuleRunner;
 
 import io.smallrye.common.annotation.RunOnVirtualThread;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.bson.Document;
@@ -12,7 +13,8 @@ import java.util.Optional;
 @Path("/organisations")
 @Produces("application/json")
 public class OrganisationAPI {
-    private final DocumentRepo documentRepo = new DocumentRepo();
+    @Inject
+    DocumentRepo documentRepo;
 
     @GET
     @RunOnVirtualThread

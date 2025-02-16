@@ -3,6 +3,7 @@ package se.evol.querybasedRuleRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import io.smallrye.common.annotation.RunOnVirtualThread;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.bson.Document;
@@ -15,7 +16,8 @@ import java.util.Optional;
 @Path("/rules")
 @Produces("application/json")
 public class RulesAPI {
-    private final DocumentRepo documentRepo = new DocumentRepo();
+    @Inject
+    DocumentRepo documentRepo;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @GET

@@ -2,11 +2,13 @@ package se.evol.querybasedRuleRunner;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
+@ApplicationScoped
 public class KycService {
 
     // TODO: A forgiving JSON schema instead of ORM would allow the external system to add new keys without syncing releases

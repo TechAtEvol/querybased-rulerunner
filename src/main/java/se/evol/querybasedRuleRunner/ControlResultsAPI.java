@@ -3,6 +3,7 @@ package se.evol.querybasedRuleRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.RunOnVirtualThread;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
@@ -15,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 @Path("/control-results")
 @Produces("application/json")
 public class ControlResultsAPI {
-    DocumentRepo documentRepo= new DocumentRepo();
-    KycService kycService = new KycService();
-    private final ControlResultExecutor controlResultExecutor = new ControlResultExecutor(documentRepo, kycService);
+
+    @Inject
+    ControlResultExecutor controlResultExecutor;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @GET
