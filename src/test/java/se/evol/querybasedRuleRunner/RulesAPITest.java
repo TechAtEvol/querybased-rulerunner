@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.containsString;
 @ExtendWith(VirtualThreadExtension.class)
 class RulesAPITest {
     private static final String RULES = "rules";
-    private static final String CONNECTION_STRING = "mongodb://localhost:28017";
+    private static final String CONNECTION_STRING = "mongodb://localhost:27017";
     private static final String DB_NAME = "orgkontroll_db";
 
     private static MongoClient getMongoClient() {

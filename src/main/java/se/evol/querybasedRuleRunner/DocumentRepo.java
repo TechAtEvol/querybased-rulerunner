@@ -33,11 +33,9 @@ public class DocumentRepo {
 
     @ConfigProperty(name = "database.collection.rules.name")
     String COLLECTION_RULES_NAME;
-    //String COLLECTION_RULES_NAME = ConfigProvider.getConfig().getValue("database.collection.rules.name", String.class);
 
     @ConfigProperty(name = "database.collection.organisations.name")
     String COLLECTION_ORGANISATIONS_NAME;
-    //String COLLECTION_ORGANISATIONS_NAME = ConfigProvider.getConfig().getValue("database.collection.organisations.name", String.class);
 
 
     public Optional<Document> findLatestOrgById(String orgId) {
@@ -55,22 +53,22 @@ public class DocumentRepo {
     }
 
     public Optional<Document> findLatestRuleVersionById(String ruleId) {
-        MongoCollection<Document> organizations = getRulesCollection();
-        FindIterable<Document> searchResult = organizations.find(eq("rule.id", ruleId)).sort(descending("ts"));
+        MongoCollection<Document> rules = getRulesCollection();
+        FindIterable<Document> searchResult = rules.find(eq("rule.id", ruleId)).sort(descending("ts"));
         return Optional.ofNullable(searchResult.first());
     }
 
     public FindIterable<Document> findAllRules() {
-        MongoCollection<Document> organizations = getRulesCollection();
-        return organizations.find()
+        MongoCollection<Document> rules = getRulesCollection();
+        return rules.find()
                 .sort(descending("ts"));
     }
 
     public String saveRule(String stringDoc) {
-        MongoCollection<Document> organizations = getRulesCollection();
+        MongoCollection<Document> rules = getRulesCollection();
         Document doc = Document.parse(stringDoc);
         doc.put("ts", new Date());
-        BsonValue newId = organizations.insertOne(doc).getInsertedId();
+        BsonValue newId = rules.insertOne(doc).getInsertedId();
         return Objects.requireNonNull(newId).toString();
     }
 
