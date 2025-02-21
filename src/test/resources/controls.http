@@ -4,4 +4,6 @@ GET http://localhost:8080//control-results/5020201140
 ### Ran rule for correct employer registration at the Swedish Tax agency
 GET http://localhost:8080//control-results/5050101145
 
+### Ran rules for all
+GET http://localhost:8080//control-results
 

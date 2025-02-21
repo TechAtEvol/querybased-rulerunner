@@ -1,3 +1,6 @@
+### Looks up all saved organisations
+GET http://localhost:8080/organisations
+
 ### Post organisation som är registrerad som filial till utlänskt bolag hos Bolagsverket
 POST http://localhost:8080/organisations
 

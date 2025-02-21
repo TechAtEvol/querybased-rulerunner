@@ -8,6 +8,7 @@ import com.mongodb.client.model.Filters;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.Json;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
 import org.bson.Document;
@@ -15,12 +16,11 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Sorts.descending;
 
 
@@ -42,6 +42,12 @@ public class DocumentRepo {
         MongoCollection<Document> organizations = getOrganisationsCollection();
         FindIterable<Document> searchResult = organizations.find(eq("organisation.orgNr", orgId)).sort(descending("ts"));
         return Optional.ofNullable(searchResult.first());
+    }
+
+    public Collection<String> getAllOrganisations() {
+        MongoCollection<Document> organizations = getOrganisationsCollection();
+        FindIterable<Document> searchResult = organizations.find().sort(descending("ts"));
+        return searchResult.map(Document::toJson).into(new ArrayList<String>());
     }
 
     public String saveOrganisation(String stringDoc) {
@@ -73,12 +79,17 @@ public class DocumentRepo {
     }
 
     public FindIterable<Document>  runQueryForOrgNr(RulesModel rule, String internalId) {
-        Log.info(rule.name());
-        Log.info("Internal id: " +internalId);
         BsonDocument freeformQuery = BasicDBObject.parse(rule.query()).toBsonDocument();
         Bson combinedQuery = and(Filters.eq("_id", new ObjectId(internalId)), freeformQuery);
         MongoCollection<Document> organizations = getOrganisationsCollection();
         return organizations.find(combinedQuery).sort(descending("ts"));
+    }
+
+    public FindIterable<Document>  runQueryForAll(RulesModel rule) {
+        BsonDocument freeformQuery = BasicDBObject.parse(rule.query()).toBsonDocument();
+        Bson projectionDef = include("_id", "organisation.orgNr");
+        MongoCollection<Document> organizations = getOrganisationsCollection();
+        return organizations.find(freeformQuery).projection(projectionDef).sort(descending("orgNr"));
     }
 
     private MongoCollection<Document> getOrganisationsCollection() {

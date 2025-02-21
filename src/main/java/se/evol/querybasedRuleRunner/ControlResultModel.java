@@ -1,4 +1,6 @@
 package se.evol.querybasedRuleRunner;
 
-public record ControlResultModel(RulesModel ruleExecuted, Boolean isMatched) {
+import java.util.Collection;
+
+public record ControlResultModel(RulesModel ruleExecuted, Boolean isMatched, Collection<String> matches) {
 }

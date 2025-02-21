@@ -35,4 +35,19 @@ public class ControlResultsAPI {
             return Response.ok("Do something about the IOException handling: "+e.getMessage()).status(500).build();
         }
     }
+
+    @GET
+    @RunOnVirtualThread
+    @Path("/")
+    public Response getOrganisations(@QueryParam("rules-package") String rulesPackage) {
+        try {
+            long start = System.nanoTime();
+            List<ControlResultModel> result = controlResultExecutor.runControlsByRulesPackageId(rulesPackage);
+            long durationInMilliseconds = TimeUnit.MILLISECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS);
+            Log.info("Rule engine duration in milli-seconds: " + durationInMilliseconds);
+            return Response.ok(mapper.writeValueAsString(result)).header("RuleEngineDurationInMilliseconds", durationInMilliseconds).build();
+        } catch (IOException | URISyntaxException e) {
+            return Response.ok("Do something about the IOException handling: "+e.getMessage()).status(500).build();
+        }
+    }
 }
