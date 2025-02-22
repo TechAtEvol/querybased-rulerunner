@@ -36,7 +36,7 @@ docker-compose up
 ```
 To start the service
 ```shell script
-./gradlew quarkusDev
+./gradlew quarkusRun
 ```
 Without thinking too much yet, look up in test/resources/rules.http and POST the two rules
 
