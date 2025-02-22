@@ -5,10 +5,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.json.Json;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
 import org.bson.Document;
@@ -47,7 +45,7 @@ public class DocumentRepo {
     public Collection<String> getAllOrganisations() {
         MongoCollection<Document> organizations = getOrganisationsCollection();
         FindIterable<Document> searchResult = organizations.find().sort(descending("ts"));
-        return searchResult.map(Document::toJson).into(new ArrayList<String>());
+        return searchResult.map(Document::toJson).into(new ArrayList<>());
     }
 
     public String saveOrganisation(String stringDoc) {

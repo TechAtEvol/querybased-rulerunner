@@ -10,8 +10,6 @@ import org.bson.Document;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @ApplicationScoped
